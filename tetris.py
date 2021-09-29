@@ -99,9 +99,6 @@ class Tetris:
                     self.playfield[i + self.Piece.y][j + self.Piece.x] = self.Piece.type + 1
         self.clear_lines()
         game.Piece = None
-        # play drop sound effect
-        sound_effect = pygame.mixer.Sound('audio/drop.wav')
-        sound_effect.play()
 
     # when player presses left or right arrow
     def horizontal_move(self, direction):
@@ -110,10 +107,6 @@ class Tetris:
         # if collision, return to original spot
         if(self.check_collision()):
             self.Piece.x -= direction
-        # play move sound effect
-        else:
-            sound_effect = pygame.mixer.Sound('audio/move.wav')
-            sound_effect.play()
 
     # once all ten pieces are filled in a row, it disappears and the other rows move down
     def clear_lines(self):
@@ -130,8 +123,6 @@ class Tetris:
         # if line was cleared, play sound effect
         if(lines > 0):
             self.lines_cleared += lines
-            sound_effect = pygame.mixer.Sound('audio/clear.wav')
-            sound_effect.play()
 
 # draws playfield grid
 def draw_grid():
@@ -319,13 +310,13 @@ pygame.init()
 # define colours
 PIECE_COLOURS = [
     (0, 0, 0),
-    (15, 155, 215),
-    (33, 65, 198),
-    (227, 91, 2),
-    (89, 177, 1),
-    (215, 15, 55),
-    (175, 41, 138),
-    (227, 159, 2)
+    (105, 125, 137),
+    (105, 125, 137),
+    (105, 125, 137),
+    (105, 125, 137),
+    (105, 125, 137),
+    (105, 125, 137),
+    (105, 125, 137),
 ]
 WHITE = (255, 255, 255)
 DARK_GREY = (50, 50, 50)
@@ -404,9 +395,6 @@ while(user_exit == False):
                 # need to redraw text to increase piece_number accurately
                 full_redraw(False)
                 game.active = False
-                # play game over sound effect
-                sound_effect = pygame.mixer.Sound("audio/gameover.wav")
-                sound_effect.play()
                 # break out of while loop since game has ended
                 break
         counter += 1
@@ -451,9 +439,6 @@ while(user_exit == False):
                                 hold_piece_temp = hold_piece
                                 hold_piece = game.Piece.type
                                 game.create_piece(hold_piece_temp)
-                            # play hold sound effect
-                            sound_effect = pygame.mixer.Sound('audio/hold.wav')
-                            sound_effect.play()
                     # move piece left
                     elif(event.key == pygame.K_LEFT):
                         game.horizontal_move(-1)
@@ -465,14 +450,11 @@ while(user_exit == False):
                         down_pressed = True
                         down_counter = 0
                     # hard drop
-                    elif(event.key == pygame.K_SPACE):
+                    elif(event.key == pygame.K_UP):
                         game.hard_drop()
                 # resets game
                 if(event.key == ord('r')):
                     game.active = False
-                    # play game over sound effect
-                    sound_effect = pygame.mixer.Sound("audio/gameover.wav")
-                    sound_effect.play()
             elif(event.type == pygame.KEYUP):
                 # user has let go of the down key
                 if(event.key == pygame.K_DOWN):
